@@ -12,6 +12,7 @@ public class BungeeNox extends Plugin {
     public void onEnable() {
         getProxy().getPluginManager().registerListener(this, new BungeeNoxListener(this));
         logger = getLogger();
+        logInfo("Enabled");
     }
 
     public void logInfo(String message){

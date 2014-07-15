@@ -1,12 +1,8 @@
 package org.bungeenox;
 
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.event.*;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
-
-import java.security.acl.Permission;
 
 public class BungeeNoxListener implements Listener {
     private final BungeeNox bungeeNox;
@@ -47,18 +43,21 @@ public class BungeeNoxListener implements Listener {
     public void onPostLogin(final PostLoginEvent event) {
         bungeeNox.logInfo("onPostLogin");
     }
-    @EventHandler
-    public void onPreLogin(final PreLoginEvent event) {
-        bungeeNox.logInfo("onPreLogin");
-    }
+
+//    @EventHandler
+//    public void onPreLogin(final PreLoginEvent event) {
+//        bungeeNox.logInfo("onPreLogin");
+//    }
+
     @EventHandler
     public void onProxyPing(final ProxyPingEvent event) {
         bungeeNox.logInfo("onProxyPing");
     }
-    @EventHandler
-    public void onProxyReload(final ProxyReloadEvent event) {
-        bungeeNox.logInfo("onProxyReload");
-    }
+
+//    @EventHandler
+//    public void onProxyReload(final ProxyReloadEvent event) {
+//        bungeeNox.logInfo("onProxyReload");
+//    }
 
     /*
     http://ci.md-5.net/job/BungeeCord/ws/api/target/apidocs/net/md_5/bungee/api/event/ServerConnectedEvent.html
@@ -83,10 +82,10 @@ public class BungeeNoxListener implements Listener {
         bungeeNox.logInfo("onServerConnect");
     }
 
-    @EventHandler
-    public void onServerDisconnect(final ServerDisconnectEvent event) {
-        bungeeNox.logInfo("onServerDisconnect");
-    }
+//    @EventHandler
+//    public void onServerDisconnect(final ServerDisconnectEvent event) {
+//        bungeeNox.logInfo("onServerDisconnect");
+//    }
 
     @EventHandler
     public void onServerKick(final ServerKickEvent event) {
@@ -98,10 +97,10 @@ public class BungeeNoxListener implements Listener {
         bungeeNox.logInfo("onServerSwitch");
     }
 
-    @EventHandler
-    public void onTabComplete(final TabCompleteEvent event) {
-        bungeeNox.logInfo("onTabComplete");
-    }
+//    @EventHandler
+//    public void onTabComplete(final TabCompleteEvent event) {
+//        bungeeNox.logInfo("onTabComplete");
+//    }
 
     @EventHandler
     public void onTargeted(final TargetedEvent event) {
