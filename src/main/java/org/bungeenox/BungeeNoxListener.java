@@ -101,6 +101,8 @@ public class BungeeNoxListener implements Listener {
             return;
         }
 
+        //event.setCancelled(true);
+
         try {
 
             bungeeNox.logInfo("player came from server: " + server.getInfo().getName());
@@ -113,7 +115,7 @@ public class BungeeNoxListener implements Listener {
             server.sendData("BungeeCord", out.toByteArray());
 
 
-            Thread.sleep(2000);
+            Thread.sleep(1000);
 
             bungeeNox.logInfo("onServerConnect done waiting");
 
