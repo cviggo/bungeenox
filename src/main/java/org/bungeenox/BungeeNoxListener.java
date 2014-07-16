@@ -1,5 +1,9 @@
 package org.bungeenox;
 
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.md_5.bungee.api.connection.Server;
 import net.md_5.bungee.api.event.*;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
@@ -35,10 +39,13 @@ public class BungeeNoxListener implements Listener {
     public void onPlayerHandshake(final PlayerHandshakeEvent event) {
         bungeeNox.logInfo("onPlayerHandshake");
     }
+
     @EventHandler
     public void onPluginMessage(final PluginMessageEvent event) {
-        bungeeNox.logInfo("onPluginMessage");
+
+        //bungeeNox.logInfo("onPluginMessage: " + event.toString());
     }
+
     @EventHandler
     public void onPostLogin(final PostLoginEvent event) {
         bungeeNox.logInfo("onPostLogin");
@@ -69,17 +76,50 @@ public class BungeeNoxListener implements Listener {
     @EventHandler
     public void onServerConnected(final ServerConnectedEvent event) {
         bungeeNox.logInfo("onServerConnected");
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            bungeeNox.logSevere(e.toString());
-        }
+//        try {
+//            Thread.sleep(2000);
+//            bungeeNox.logInfo("done waiting");
+//        } catch (InterruptedException e) {
+//            bungeeNox.logSevere(e.toString());
+//        }
         //event.getPlayer().sendMessage(new ComponentBuilder("Welcome to " + event.getServer().getInfo().getName() + "!").color(ChatColor.GREEN).create());
     }
 
     @EventHandler
     public void onServerConnect(final ServerConnectEvent event) {
         bungeeNox.logInfo("onServerConnect");
+
+        final ProxiedPlayer player = event.getPlayer();
+
+        if (player == null) {
+            return;
+        }
+
+        final Server server = player.getServer();
+
+        if (server == null) {
+            return;
+        }
+
+        try {
+
+            bungeeNox.logInfo("player came from server: " + server.getInfo().getName());
+
+            ByteArrayDataOutput out = ByteStreams.newDataOutput();
+            out.writeUTF("BungeeNox");
+            out.writeUTF("SavePlayer");
+            out.writeUTF(player.getName());
+
+            server.sendData("BungeeCord", out.toByteArray());
+
+
+            Thread.sleep(2000);
+
+            bungeeNox.logInfo("onServerConnect done waiting");
+
+        } catch (InterruptedException e) {
+            bungeeNox.logSevere(e.toString());
+        }
     }
 
 //    @EventHandler
