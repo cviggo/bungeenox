@@ -50,7 +50,7 @@ public class BungeeNoxListener implements Listener {
 
     @EventHandler
     public void onPermissionCheckEvent(final PermissionCheckEvent event) {
-        bungeeNox.logInfo("onPermissionCheckEvent: " + event.getPermission());
+        //bungeeNox.logInfo("onPermissionCheckEvent: " + event.getPermission());
 
     }
 
