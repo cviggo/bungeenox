@@ -73,6 +73,8 @@ public class BungeeNoxListener implements Listener {
     @EventHandler
     public void onPostLogin(final PostLoginEvent event) {
         bungeeNox.logInfo("onPostLogin");
+
+        //event.getPlayer().disconnect("World server reboot in progress. Hang on :) - it will only take a few minutes");
     }
 
 //    @EventHandler
@@ -138,7 +140,7 @@ public class BungeeNoxListener implements Listener {
 
             server.sendData("BungeeCord", out.toByteArray());
 
-            Thread.sleep(1000);
+            Thread.sleep(5000);
 
             bungeeNox.logInfo("onServerConnect done waiting");
 
