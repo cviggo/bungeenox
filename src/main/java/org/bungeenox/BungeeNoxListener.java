@@ -21,7 +21,7 @@ public class BungeeNoxListener implements Listener {
     public void onChatEvent(final ChatEvent event) {
 
         final String message = event.getMessage();
-        bungeeNox.logInfo("onChatEvent: " + message);
+        bungeeNox.logInfo(event.getSender().toString() + " : " + message);
 
         if ("/saveallplayers".equals(message)){
             final Collection<ProxiedPlayer> proxiedPlayers = bungeeNox.getProxy().getPlayers();
