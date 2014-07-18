@@ -8,6 +8,8 @@ import net.md_5.bungee.api.event.*;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
+import java.util.Collection;
+
 public class BungeeNoxListener implements Listener {
     private final BungeeNox bungeeNox;
 
@@ -17,7 +19,28 @@ public class BungeeNoxListener implements Listener {
 
     @EventHandler
     public void onChatEvent(final ChatEvent event) {
-        bungeeNox.logInfo("onChatEvent");
+
+        final String message = event.getMessage();
+        bungeeNox.logInfo("onChatEvent: " + message);
+
+        if ("/saveallplayers".equals(message)){
+            final Collection<ProxiedPlayer> proxiedPlayers = bungeeNox.getProxy().getPlayers();
+
+            bungeeNox.logInfo("Saving all players to all servers");
+
+            for (ProxiedPlayer proxiedPlayer : proxiedPlayers) {
+                final Server server = proxiedPlayer.getServer();
+
+                ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                out.writeUTF("BungeeNox");
+                out.writeUTF("SavePlayer");
+                out.writeUTF(proxiedPlayer.getName());
+
+                server.sendData("BungeeCord", out.toByteArray());
+            }
+
+            bungeeNox.logInfo("Done saving all players to all servers");
+        }
     }
 
     @EventHandler
@@ -27,7 +50,8 @@ public class BungeeNoxListener implements Listener {
 
     @EventHandler
     public void onPermissionCheckEvent(final PermissionCheckEvent event) {
-        bungeeNox.logInfo("onPermissionCheckEvent");
+        bungeeNox.logInfo("onPermissionCheckEvent: " + event.getPermission());
+
     }
 
     @EventHandler
@@ -113,7 +137,6 @@ public class BungeeNoxListener implements Listener {
             out.writeUTF(player.getName());
 
             server.sendData("BungeeCord", out.toByteArray());
-
 
             Thread.sleep(1000);
 
